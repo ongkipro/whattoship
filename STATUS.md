@@ -2,7 +2,7 @@
 
 Updated: 2026-09-12
 Status: Active
-State: PRODUCTION_READY
+State: VERIFIED
 Review-Risk: R1
 Independent-Review: PASS
 Primary-Worker: Antigravity
@@ -17,12 +17,13 @@ Allowed forward path:
 
 ## Current state
 
-All 23 tasks across 8 implementation phases completed, verified, and passing.
-Next.js App Router application with Google Gemini light aesthetic, SQLite + FTS5 full-text search, 13,445 software ideas, 8-pillar analytical intelligence dossiers, curated collections, dynamic sitemaps, dynamic OpenGraph PNG generation, client-side bookmarks, and native-grade Mobile Web App UI/UX (docked BottomNav, zero iOS Safari input zoom, 44px+ touch targets).
+All 30 tasks across all 9 implementation phases completed, verified, and passing.
+Live on production at **https://whattoship.vercel.app**.
+Next.js App Router application with Google Gemini light aesthetic, SQLite + FTS5 full-text search, 13,445 software ideas, 10-pillar analytical intelligence dossiers (including Target Geography, Buyer Persona, and Demographics), curated collections, dynamic sitemaps, dynamic OpenGraph PNG generation, interactive Bookmark Save/Unsave, programmatic MDX export, and native-grade Mobile Web App UI/UX (docked BottomNav, zero iOS Safari input zoom, 44px+ touch targets).
 
 ## Active work
 
-Phase 9 Parallel Research & Verification Engine planned in TASKS.md (T24 - T30).
+None. All 30 tasks (T1 - T30) are 100% COMPLETE, audited, and deployed to live production.
 
 ## Blockers
 
@@ -31,15 +32,19 @@ None.
 ## Verification evidence
 
 - `npm run lint`: PASSED (0 errors, 0 warnings across entire codebase).
-- `npm run build`: PASSED (111 pre-rendered static routes, dynamic API endpoints, 0 errors in 1.1s).
-- `project-check`: PASSED (delivery contracts verified).
-- `npm run db:seed`: PASSED (13,445 records seeded with URL-safe slugs, 6 curated collections).
-- `npm run enrich:baseline`: PASSED (13,445 8-pillar dossiers generated in 0.51s).
-- `npm run enrich:deep`: PASSED (Deep AI enrichment for priority ideas).
-- `scripts/verify-all.ts`: PASSED (12/12 automated integration checks on live server).
+- `npm run build`: PASSED (111 pre-rendered static routes, dynamic API endpoints, 0 errors).
+- `scripts/audit-analyses.ts`: PASSED (100% of 13,445 ideas verified with zero missing fields, zero junk placeholders, and valid JSON).
+- `scripts/research-worker.ts`: PASSED (Parallel research execution across Clusters A, B, and C).
+- `scripts/export-mdx.ts` & `/api/ideas/[slug]/mdx`: PASSED (Dual-layer storage with on-demand MDX generation).
+- `Vercel Production Deployment`: PASSED (Live at `https://whattoship.vercel.app`, HTTP/2 200 OK, PRERENDER cache, serverless SQLite read-only mode).
 - `BottomNav & Mobile Web App View`: Docked bottom navigation bar integrated, safe-area inset bottom support, tap targets >= 44px, zero horizontal overflow.
+- `Interactive Bookmark Save/Unsave`: Client-side reactive local storage bookmarking integrated in both catalog cards and blueprint dossiers.
 - `AI Slop Cleanup`: Eradicated robotic LLM boilerplates and hype slogans.
 
-## Next verified action
+## Production Artifacts & Endpoints
 
-Awaiting Paduka Ongki's instruction to trigger Phase 9 parallel deep research execution or deployment.
+- Live Production Domain: https://whattoship.vercel.app
+- GitHub Repository: https://github.com/ongkipro/whattoship
+- Dynamic Sitemap: https://whattoship.vercel.app/sitemap.xml
+- API Catalog: https://whattoship.vercel.app/api/ideas?limit=10
+- Programmatic MDX Sample: https://whattoship.vercel.app/api/ideas/translate-to-english/mdx
