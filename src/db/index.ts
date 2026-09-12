@@ -5,38 +5,61 @@ import path from 'path';
 import fs from 'fs';
 
 const isVercel = process.env.VERCEL === '1';
-const DB_PATH = process.env.DATABASE_PATH || path.join(process.cwd(), 'data', 'what_to_ship.db');
 
-// Ensure parent directory exists (in local / writable environments)
-if (!isVercel) {
-  const dir = path.dirname(DB_PATH);
+function resolveDatabasePath(): string {
+  const sourcePath = path.join(process.cwd(), 'data', 'what_to_ship.db');
+
+  if (isVercel) {
+    const tmpPath = path.join('/tmp', 'what_to_ship.db');
+    if (fs.existsSync(tmpPath)) {
+      return tmpPath;
+    }
+
+    if (fs.existsSync(sourcePath)) {
+      try {
+        console.log(`Preparing database in /tmp for serverless execution...`);
+        fs.copyFileSync(sourcePath, tmpPath);
+        console.log(`Database ready at ${tmpPath}`);
+        return tmpPath;
+      } catch (err) {
+        console.error('Failed to copy database to /tmp:', err);
+      }
+    } else {
+      console.error('Source database not found at:', sourcePath);
+    }
+  }
+
+  // Ensure local directory exists in dev
+  const dir = path.dirname(sourcePath);
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true });
   }
+
+  return sourcePath;
 }
 
-// Open sqlite database: on Vercel serverless, open as readonly to avoid EROFS filesystem errors
-export const sqlite = new Database(DB_PATH, {
+const activeDbPath = resolveDatabasePath();
+
+// Open database: in Vercel, opening from /tmp avoids read-only filesystem locks
+export const sqlite = new Database(activeDbPath, {
   readonly: isVercel,
-  fileMustExist: isVercel,
+  fileMustExist: false,
 });
 
 if (!isVercel) {
-  // Enable WAL mode for high concurrent local performance
   try {
     sqlite.pragma('journal_mode = WAL');
     sqlite.pragma('synchronous = NORMAL');
-    sqlite.pragma('cache_size = -64000'); // 64MB cache
+    sqlite.pragma('cache_size = -64000');
   } catch {
-    // Fallback gracefully
+    // Graceful fallback
   }
 } else {
-  // Production serverless read-only optimization
   try {
     sqlite.pragma('query_only = ON');
-    sqlite.pragma('cache_size = -32000'); // 32MB cache
+    sqlite.pragma('cache_size = -32000');
   } catch {
-    // Fallback gracefully
+    // Graceful fallback
   }
 }
 
