@@ -1,19 +1,25 @@
 # WhatToShip (what-to-ship)
 
-> **Autonomous Software Idea Intelligence Engine** indexing 13,445 validated software opportunities with Google Gemini UI/UX, deep 8-pillar analytical dossiers, SQLite + FTS5 full-text search, and programmatic SEO.
+> **Autonomous Software Idea Intelligence Engine** indexing 13,445 validated software opportunities with Google Gemini UI/UX, deep 10-pillar analytical dossiers (including Target Geography, Buyer Personas, and Demographics), SQLite + FTS5 full-text search, and programmatic SEO.
+>
+> 🌐 **Live Production**: [https://whattoship.vercel.app](https://whattoship.vercel.app)  
+> 📦 **GitHub Repository**: [https://github.com/ongkipro/whattoship](https://github.com/ongkipro/whattoship)
 
 ---
 
 ## 🌟 Key Features
 
-- **Google Gemini Canvas UI/UX**:
-  - Dark theme canvas (`#131314` background, `#1e1f20` surface cards, `#2a2b2e` borders, multi-color aura gradients).
+- **Google Gemini Canvas UI/UX & Mobile Web App**:
+  - High-contrast Google Gemini light aesthetic (`#ffffff` / `#f8f9fa` surface cards, `#e8eaed` borders, refined dark typography).
   - Floating prompt capsule search bar with ⌘K hotkey and interactive category pills.
   - Interactive multi-dimensional filters (Type, Category, SEO Difficulty, Tech Complexity, Revenue Model, Trending).
-  - Client-side bookmarks drawer (`/bookmarks`) backed by `useSyncExternalStore` and CSV export.
+  - Native-grade docked **Bottom Navigation Bar** (`BottomNav.tsx`) with safe-area inset (`env(safe-area-inset-bottom)`), $\ge 44\text{px}$ touch targets, and real-time saved count badge.
+  - iOS Safari anti-zoom safeguards (minimum 16px font size on inputs to prevent unwanted viewport scaling).
+  - Interactive Bookmark Save/Unsave drawer (`/bookmarks`) backed by `useSyncExternalStore` and CSV export.
 - **Deep Analytical Intelligence Dossiers (`/ideas/[slug]`)**:
-  - 8-Axis SVG Radar Scorecard (Market Demand, SEO Feasibility, Tech Feasibility, Monetization Potential, Defensibility, Velocity to MVP, Scalability, Capital Efficiency).
-  - 7 Structured Breakdown Sections:
+  - **Market Demographics & Target Persona Card**: Verified target countries (Tier-1 US/UK/CA/AU vs Emerging vs Global), buyer persona profile, and audience demographics.
+  - **8-Axis SVG Radar Scorecard**: Market Demand, SEO Feasibility, Tech Feasibility, Monetization Potential, Defensibility, Velocity to MVP, Scalability, Capital Efficiency.
+  - **Structured Breakdown Sections**:
     1. Market Demand & Search Volume Breakdown
     2. Recommended Technical Architecture & Stack
     3. Monetization Blueprint & Unit Economics
@@ -22,6 +28,9 @@
     6. Ready-to-Use AI Starter Prompt (1-click copyable with clipboard feedback)
     7. Competitor Wedge & Unique Advantage
   - Semantic JSON-LD structured data markup (`WebApplication` schema) on every idea page.
+- **Dual-Layer Data & Programmatic MDX**:
+  - High-performance SQLite database (`data/what_to_ship.db`) with FTS5 search queries executing in $< 2\text{ms}$.
+  - On-Demand Programmatic MDX endpoint (`/api/ideas/[slug]/mdx`) generating frontmatter-rich Markdown files on the fly for AI agents or documentation builders.
 - **Curated Thematic Hubs (`/collections` & `/collections/[slug]`)**:
   - *Instant Wins & Fast TTM*: Low difficulty, fast build ideas.
   - *High-Yield Micro-SaaS*: B2B and recurring subscription tools.
@@ -29,8 +38,8 @@
   - *AI-Native Utilities*: AI-driven apps, wrappers, and workflows.
   - *Solo Founder Sweetspot*: Manageable tech complexity and solid monetization.
   - *Niche B2B Workflow Tools*: Low churn and high retention workflows.
-- **High-Performance Architecture**:
-  - Local SQLite database (`data/what_to_ship.db`) with WAL pragma & 64MB cache using `better-sqlite3` and `drizzle-orm`.
+- **High-Performance Serverless Architecture**:
+  - Automated `/tmp` cold-start mirror on Vercel ensuring zero POSIX file locking or EROFS read-only errors.
   - SQLite FTS5 virtual table (`ideas_fts`) executing keyword queries across 13,445 items in ~1.07ms.
   - Dynamic XML Sitemap index (`/sitemap.xml`) routing into chunked sub-sitemaps (`/sitemap-[id].xml` with 2,000 URLs each).
   - Dynamic OpenGraph social share image generator (`/ideas/[slug]/opengraph-image`) rendering 1200x630 PNG badges with `@vercel/og`.

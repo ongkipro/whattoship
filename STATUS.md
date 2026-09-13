@@ -1,6 +1,6 @@
 # Status — what-to-ship
 
-Updated: 2026-09-12
+Updated: 2026-09-13
 Status: Active
 State: VERIFIED
 Review-Risk: R1
@@ -40,6 +40,8 @@ None.
 - `BottomNav & Mobile Web App View`: Docked bottom navigation bar integrated, safe-area inset bottom support, tap targets >= 44px, zero horizontal overflow.
 - `Interactive Bookmark Save/Unsave`: Client-side reactive local storage bookmarking integrated in both catalog cards and blueprint dossiers.
 - `AI Slop Cleanup`: Eradicated robotic LLM boilerplates and hype slogans.
+- `Playwright Environment`: PASSED (Chromium v1243 installed in user cache, live headless screenshot test verified).
+- `Server Lifecycle`: PASSED (All localhost and background dev processes cleanly terminated, ports 3000/3001 verified free).
 
 ## Production Artifacts & Endpoints
 
